@@ -1,0 +1,14 @@
+{
+  "kind": "subscribe",
+  "payload": {
+    "request_id": "c0000000-0000-4000-8000-000000000003",
+    "session_id": "22222222-2222-4222-8222-222222222222",
+    "event_types": [
+      "canvas.stroke.began",
+      "canvas.stroke.cancelled",
+      "canvas.stroke.completed",
+      "canvas.stroke.points_appended",
+      "canvas.stroke.removed"
+    ]
+  }
+}

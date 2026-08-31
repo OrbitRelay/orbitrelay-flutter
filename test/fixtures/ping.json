@@ -1,0 +1,6 @@
+{
+  "kind": "ping",
+  "payload": {
+    "nonce": 42
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "hello_accepted",
+  "payload": {
+    "codec": "json",
+    "selected_version": {
+      "major": 0,
+      "minor": 1,
+      "patch": 0
+    }
+  }
+}

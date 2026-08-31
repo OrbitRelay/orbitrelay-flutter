@@ -1,0 +1,7 @@
+{
+  "kind": "subscription_accepted",
+  "payload": {
+    "request_id": "c0000000-0000-4000-8000-000000000003",
+    "subscription_id": "d0000000-0000-4000-8000-000000000001"
+  }
+}

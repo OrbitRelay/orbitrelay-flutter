@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build web --release --no-web-resources-cdn
+      - run: cp LICENSE build/web/LICENSE
+      - run: tar -czf orbitrelay-flutter-web.tar.gz -C build/web .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orbitrelay-flutter-web
+          path: orbitrelay-flutter-web.tar.gz
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - shell: pwsh
+        run: Compress-Archive -Path build/windows/x64/runner/Release/*, LICENSE -DestinationPath orbitrelay-flutter-windows.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orbitrelay-flutter-windows
+          path: orbitrelay-flutter-windows.zip
+
+  release:
+    needs: [build-web, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - run: gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}

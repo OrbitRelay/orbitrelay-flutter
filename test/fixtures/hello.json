@@ -1,0 +1,15 @@
+{
+  "kind": "hello",
+  "payload": {
+    "supported_versions": [
+      {
+        "major": 0,
+        "minor": 1,
+        "patch": 0
+      }
+    ],
+    "codecs": [
+      "json"
+    ]
+  }
+}
